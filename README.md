@@ -2,7 +2,7 @@
 
 In progress...
 
-### Languages and Libraries used in Development in Linux
+### Language and Libraries used in Development in Ubuntu
 * Python 3
 * Tensorflow
 * OpenCV
