@@ -1,5 +1,18 @@
 import cv2
 
+import tensorflow as tf
+import tensorflow_hub as hub
+from tensorflow.keras import layers, Sequential
+import tensorflow.keras.backend as K
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import EarlyStopping
+import pathlib
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set()
+import numpy as np
+
 class ThesisTextileRecognition:
 
     def __init__(self,webcam=True,rpicam=False):
