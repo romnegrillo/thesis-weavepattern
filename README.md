@@ -34,8 +34,10 @@ below manually again:
 * sudo modprobe bcm2835-v4l2  (For enabling USB camera.)
 * RPI camera can be enable in sudo raspi-config.
 
+### To Buy:
+* https://shopee.ph/Raspberry-Pi-Camera-Module-V2-8-Megapixels-i.18252381.252067660?position=2 - 1649
+(Trambia)
+* https://shopee.ph/product/43891586/5656778897?smtt=0.92093202-1629530374.9
+(Pinilian)
+* https://shopee.ph/product/273736909/5256813649?smtt=0.92093202-1629531631.9
 
-### To buy:
-* RPi4 [/]
-* https://shopee.ph/5-inch-Raspberry-Pi-Touch-Screen-Display-i.18252381.453265496?position=1 [/]
-* https://shopee.ph/Raspberry-Pi-Camera-Module-V2-8-Megapixels-i.18252381.252067660?position=2 [ ]
