@@ -24,6 +24,7 @@ below manually again:
 * pip3 install numpy
 * pip3 install numpy --upgrade
 * pip3 install seaborn
+* pip3 install pyyaml h5py
 * sudo apt-get install python3-pyqt5
 * sudo apt-get install libatlas-base-dev
 * sudo apt-get install libjasper-dev
