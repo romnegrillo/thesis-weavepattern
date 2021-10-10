@@ -75,3 +75,6 @@ class ThesisTextileRecognition:
     def load_model(self, trained_model_path):
         self.model = tf.keras.models.load_model(trained_model_path)
         self.model.summary()
+
+    def get_prediction(self, input_image):
+        

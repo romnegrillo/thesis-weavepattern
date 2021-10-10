@@ -17,7 +17,7 @@ from tensorflow.keras import layers
 # Arrange it in the format of Cats and Dogs
 
 
-PATH = os.path.join("dataset", "cats_and_dogs_filtered")
+PATH = os.path.join("dataset", "cloth_pattern")
 
 train_dir = os.path.join(PATH, 'train')
 validation_dir = os.path.join(PATH, 'validation')
@@ -57,10 +57,17 @@ train_dataset = train_dataset.prefetch(buffer_size=AUTOTUNE)
 validation_dataset = validation_dataset.prefetch(buffer_size=AUTOTUNE)
 test_dataset = test_dataset.prefetch(buffer_size=AUTOTUNE)
 
-data_augmentation = tf.keras.Sequential([
-  layers.RandomFlip('horizontal'),
-  layers.RandomRotation(0.2),
-])
+ 
+# TF >= 2.6, auto dat augmentation is available.
+# data_augmentation = tf.keras.Sequential([
+#   tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
+#   tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
+# ])
+
+# TF < 2.6, manual data augmentation.
+data_augmentation = tf.keras.Sequential([])
+
+ 
 
 
 for image, _ in train_dataset.take(1):
@@ -111,7 +118,7 @@ print(feature_batch_average.shape)
 
 print("DEBUG 2")
 
-prediction_layer = tf.keras.layers.Dense(2, activation="softmax")
+prediction_layer = tf.keras.layers.Dense(6, activation="softmax")
 prediction_batch = prediction_layer(feature_batch_average)
 print(prediction_batch.shape)
 
@@ -120,7 +127,8 @@ print("DEBUG 3")
 inputs = tf.keras.Input(shape=(160, 160, 3))
 
 print("DEBUG 4")
-x = data_augmentation(inputs)
+#x = data_augmentation(inputs)
+x = inputs
 print("DEBUG 5")
 x = preprocess_input(x)
 print("DEBUG 6")
@@ -148,7 +156,7 @@ model.summary()
 
 len(model.trainable_variables)
 
-initial_epochs = 10
+initial_epochs = 5
 
 loss0, accuracy0 = model.evaluate(validation_dataset)
 
@@ -159,7 +167,7 @@ history = model.fit(train_dataset,
                     epochs=initial_epochs,
                     validation_data=validation_dataset)
 
-fine_tune_epochs = 10
+fine_tune_epochs = 5
 total_epochs =  initial_epochs + fine_tune_epochs
 
 history_fine = model.fit(train_dataset,
