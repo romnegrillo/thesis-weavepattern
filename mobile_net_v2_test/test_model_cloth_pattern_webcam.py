@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 from tensorflow import keras
 
-labels = ["checked", "dotted", "floral",  "solid", "stripped", "zig zag"]
+labels = ["checkered pattern", "dotted pattern", "floral pattern",  "solid pattern", "stripped pattern", "zig zag"]
 
 new_model = tf.keras.models.load_model("cloth_pattern_mobilenetv2.h5")
 new_model.summary()

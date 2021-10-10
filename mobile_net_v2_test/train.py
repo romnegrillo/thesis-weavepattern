@@ -18,7 +18,7 @@ from tensorflow.keras.preprocessing import image_dataset_from_directory
 # Arrange it in the format of Cats and Dogs
 
 
-PATH = os.path.join("dataset", "cats_and_dogs_filtered")
+PATH = os.path.join("dataset", "cloth_pattern")
 
 train_dir = os.path.join(PATH, 'train')
 validation_dir = os.path.join(PATH, 'validation')
@@ -108,7 +108,7 @@ global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 feature_batch_average = global_average_layer(feature_batch)
 print(feature_batch_average.shape)
 
-prediction_layer = tf.keras.layers.Dense(2, activation="softmax")
+prediction_layer = tf.keras.layers.Dense(6, activation="softmax")
 prediction_batch = prediction_layer(feature_batch_average)
 print(prediction_batch.shape)
 
