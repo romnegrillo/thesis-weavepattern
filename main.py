@@ -26,9 +26,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.confidence_textbox.setText("-")
 
         if in_rpi:
-            self.imgObject=ThesisTextileRecognition(webcam = False, rpicam = True)
+            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/cloth_pattern_mobilenetv2.h5",
+                                                    use_webcam = False,
+                                                    use_rpicam = True)
+            self.showFullScreen()
         else:
-            self.imgObject=ThesisTextileRecognition(webcam=True)
+            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/cloth_pattern_mobilenetv2.h5",
+                                                    use_webcam=True,
+                                                    use_rpicam = False)
+                                                    
+            self.showFullScreen()
 
         self.is_captured = False
 
