@@ -3,7 +3,7 @@ import os
 import tensorflow as tf
 
 from tensorflow.keras.preprocessing import image_dataset_from_directory
-
+from tensorflow.keras import layers
 
 # Cats and Dogs
 # Move it to working directory.
@@ -58,8 +58,8 @@ validation_dataset = validation_dataset.prefetch(buffer_size=AUTOTUNE)
 test_dataset = test_dataset.prefetch(buffer_size=AUTOTUNE)
 
 data_augmentation = tf.keras.Sequential([
-  tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
-  tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
+  layers.RandomFlip('horizontal'),
+  layers.RandomRotation(0.2),
 ])
 
 
