@@ -103,30 +103,48 @@ for layer in base_model.layers[:fine_tune_at]:
 # Let's take a look at the base model architecture
 base_model.summary()
 
+print("DEBUG 1")
+
 global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 feature_batch_average = global_average_layer(feature_batch)
 print(feature_batch_average.shape)
+
+print("DEBUG 2")
 
 prediction_layer = tf.keras.layers.Dense(2, activation="softmax")
 prediction_batch = prediction_layer(feature_batch_average)
 print(prediction_batch.shape)
 
-inputs = tf.keras.Input(shape=(160, 160, 3))
-x = data_augmentation(inputs)
-x = preprocess_input(x)
-x = base_model(x, training=False)
-x = global_average_layer(x)
-x = tf.keras.layers.Dropout(0.2)(x)
-outputs = prediction_layer(x)
-model = tf.keras.Model(inputs, outputs)
+print("DEBUG 3")
 
+inputs = tf.keras.Input(shape=(160, 160, 3))
+
+print("DEBUG 4")
+x = data_augmentation(inputs)
+print("DEBUG 5")
+x = preprocess_input(x)
+print("DEBUG 6")
+x = base_model(x, training=False)
+print("DEBUG 7")
+x = global_average_layer(x)
+print("DEBUG 8")
+x = tf.keras.layers.Dropout(0.2)(x)
+print("DEBUG 9")
+outputs = prediction_layer(x)
+print("DEBUG 10")
+model = tf.keras.Model(inputs, outputs)
+print("DEBUG 11")
 base_learning_rate = 0.0001
+
 
 model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               optimizer = tf.keras.optimizers.RMSprop(lr=base_learning_rate/10),
               metrics=['accuracy'])
 
+ 
+
 model.summary()
+
 
 len(model.trainable_variables)
 
