@@ -59,13 +59,13 @@ test_dataset = test_dataset.prefetch(buffer_size=AUTOTUNE)
 
  
 # TF >= 2.6, auto dat augmentation is available.
-# data_augmentation = tf.keras.Sequential([
-#   tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
-#   tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
-# ])
+data_augmentation = tf.keras.Sequential([
+  tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
+  tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
+])
 
 # TF < 2.6, manual data augmentation.
-data_augmentation = tf.keras.Sequential([])
+#data_augmentation = tf.keras.Sequential([])
 
  
 
@@ -231,6 +231,6 @@ for i in range(9):
   plt.title(class_names[predictions[i]])
   plt.axis("off")
 
-model.save('cats_and_dogs_mobilenetv2.h5')
+model.save('cloth_pattern_mobilenetv2.h5')
 
 print("Model trained, tested and saved!")
