@@ -24,6 +24,8 @@ class ThesisTextileRecognition:
         self.view_num=1
         self.trained_model_path = trained_model_path
         self.model = None
+        self.labels = ["checkered pattern", "dotted pattern", "floral pattern",  "solid pattern", "stripped pattern", "zig zag"]
+
         
         self.load_model(self.trained_model_path)
 
@@ -51,6 +53,8 @@ class ThesisTextileRecognition:
         gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY)
         t,tresh=cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
+        self.get_prediction(bgr)
+        
         if self.view_num == 1:
             #print("rgb")
             return cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB)
@@ -60,8 +64,6 @@ class ThesisTextileRecognition:
         elif self.view_num == 3:
             #print("threshold")
             return tresh
-
-        return cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB)
 
     def close_cam(self):
         if self.use_webcam:
@@ -77,4 +79,26 @@ class ThesisTextileRecognition:
         self.model.summary()
 
     def get_prediction(self, input_image):
+
+        print("DEBUG")
+        
+        frame_filtered = cv2.resize(input_image, (160,160))
+        #frame_filtered = frame_filtered/255.0
+
+        predictions_list = self.model.predict(np.array([frame_filtered]))
+        prediction = np.argmax(predictions_list[0])
+        proba = np.round(float(predictions_list[0][prediction]) * 100, 2)   
+
+        print(predictions_list)
+        label = ""
+
+        if proba >= 90:
+            label = self.labels[prediction]
+            print("{} %".format(proba))
+        else:
+            label = "Unknown"
+
+        print(label)
+
+
         
