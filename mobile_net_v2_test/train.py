@@ -16,8 +16,9 @@ from tensorflow.keras import layers
 # https://github.com/lstearns86/clothing-pattern-dataset
 # Arrange it in the format of Cats and Dogs
 
+dataset_name = "weave_pattern"
 
-PATH = os.path.join("dataset", "cloth_pattern")
+PATH = os.path.join("dataset", dataset_name)
 
 train_dir = os.path.join(PATH, 'train')
 validation_dir = os.path.join(PATH, 'validation')
@@ -59,13 +60,14 @@ test_dataset = test_dataset.prefetch(buffer_size=AUTOTUNE)
 
  
 # TF >= 2.4, auto dat augmentation is available.
-data_augmentation = tf.keras.Sequential([
-  tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
-  tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
-])
+# data_augmentation = tf.keras.Sequential([
+#   tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
+#   tf.keras.layers.experimental.preprocessing.RandomFlip('vertical'),
+#   tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
+# ])
 
 # TF < 2.4, manual data augmentation.
-#data_augmentation = tf.keras.Sequential([])
+data_augmentation = tf.keras.Sequential([])
 
  
 for image, _ in train_dataset.take(1):
@@ -114,7 +116,7 @@ feature_batch_average = global_average_layer(feature_batch)
 print(feature_batch_average.shape)
  
 
-prediction_layer = tf.keras.layers.Dense(6, activation="softmax")
+prediction_layer = tf.keras.layers.Dense(4, activation="softmax")
 prediction_batch = prediction_layer(feature_batch_average)
 print(prediction_batch.shape)
 
@@ -144,7 +146,7 @@ model.summary()
 
 len(model.trainable_variables)
 
-initial_epochs = 5
+initial_epochs = 1
 
 loss0, accuracy0 = model.evaluate(validation_dataset)
 
@@ -155,7 +157,7 @@ history = model.fit(train_dataset,
                     epochs=initial_epochs,
                     validation_data=validation_dataset)
 
-fine_tune_epochs = 5
+fine_tune_epochs = 1
 total_epochs =  initial_epochs + fine_tune_epochs
 
 history_fine = model.fit(train_dataset,
@@ -219,6 +221,8 @@ for i in range(9):
   plt.title(class_names[predictions[i]])
   plt.axis("off")
 
-model.save('cloth_pattern_mobilenetv2.h5')
+model.save('{}_mobilenetv2.h5'.format(dataset_name))
 
 print("Model trained, tested and saved!")
+
+

@@ -12,8 +12,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 import numpy as np
-from picamera import PiCamera
-from picamera.array import PiRGBArray
+
+try:
+    from picamera import PiCamera
+    from picamera.array import PiRGBArray
+except Exception as exp:
+    print(str(exp))
 
 class ThesisTextileRecognition:
 
