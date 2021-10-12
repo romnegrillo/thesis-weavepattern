@@ -41,7 +41,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.timer=QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_frames)
-        self.timer.start(5)
+        self.timer.start(1)
  
     def capture_button_clicked(self):
         print("Capture button clicked.")
@@ -55,12 +55,12 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if self.is_captured:
             self.is_captured = False
-            self.timer.start(5)
+            self.timer.start(1)
 
 
     def update_frames(self):
         self.image=self.imgObject.get_frames()
-
+         
         # If there is only 2 items in shape, it means the
         # image is one channel.
         if(len(self.image.shape)==2):

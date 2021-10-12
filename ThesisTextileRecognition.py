@@ -33,7 +33,7 @@ class ThesisTextileRecognition:
             if self.use_webcam:
                 self.capture=cv2.VideoCapture(0)
             elif self.use_rpicam:
-                self.camera = PiCamera()
+                self.camera = PiCamera(framerate=10)
                 self.rawCapture = PiRGBArray(self.camera)
         except Exception as exp:
             print(str(exp))
@@ -80,7 +80,7 @@ class ThesisTextileRecognition:
 
     def get_prediction(self, input_image):
 
-        print("DEBUG")
+        #print("DEBUG")
         
         frame_filtered = cv2.resize(input_image, (160,160))
         #frame_filtered = frame_filtered/255.0
@@ -89,16 +89,15 @@ class ThesisTextileRecognition:
         prediction = np.argmax(predictions_list[0])
         proba = np.round(float(predictions_list[0][prediction]) * 100, 2)   
 
-        print(predictions_list)
+        #print(predictions_list)
         label = ""
 
         if proba >= 90:
             label = self.labels[prediction]
-            print("{} %".format(proba))
+            #print("{} %".format(proba))
         else:
             label = "Unknown"
 
-        print(label)
-
+        #print(label)
 
         
