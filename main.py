@@ -53,7 +53,7 @@ class MainWindow(QtWidgets.QMainWindow):
         prediction, proba = self.imgObject.get_prediction(self.image)
 
         self.class_textbox.setText(prediction)
-        self.confidence_textbox.setText(proba)
+        self.confidence_textbox.setText(str(proba))
         
     def reset_button_clicked(self):
         print("Reset button clicked.")

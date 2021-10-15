@@ -96,7 +96,7 @@ class ThesisTextileRecognition:
         #print(predictions_list)
         label = ""
 
-        if proba >= 90:
+        if proba >= 80:
             label = self.labels[prediction]
             #print("{} %".format(proba))
         else:
