@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(211, 215, 207);</string>
+   <string notr="true"> </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="image_label">
@@ -89,7 +89,7 @@
      </rect>
     </property>
     <property name="title">
-     <string> </string>
+     <string/>
     </property>
     <widget class="QLabel" name="confidence_label">
      <property name="geometry">
@@ -165,7 +165,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

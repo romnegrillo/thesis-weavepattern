@@ -57,7 +57,7 @@ class ThesisTextileRecognition:
         gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY)
         t,tresh=cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-        self.get_prediction(bgr)
+        #self.get_prediction(bgr)
         
         if self.view_num == 1:
             #print("rgb")
@@ -96,12 +96,15 @@ class ThesisTextileRecognition:
         #print(predictions_list)
         label = ""
 
-        if proba >= 90:
+        if proba >= 80:
             label = self.labels[prediction]
             #print("{} %".format(proba))
         else:
             label = "Unknown"
+            proba = "-"
 
         #print(label)
+
+        return label, proba
 
         

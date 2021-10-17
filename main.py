@@ -50,6 +50,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.is_captured = True
             self.timer.stop()
 
+        prediction, proba = self.imgObject.get_prediction(self.image)
+
+        self.class_textbox.setText(prediction)
+        self.confidence_textbox.setText(str(proba))
+        
     def reset_button_clicked(self):
         print("Reset button clicked.")
         
@@ -57,6 +62,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.is_captured = False
             self.timer.start(1)
 
+        self.class_textbox.setText("-")
+        self.confidence_textbox.setText("-")
 
     def update_frames(self):
         self.image=self.imgObject.get_frames()
