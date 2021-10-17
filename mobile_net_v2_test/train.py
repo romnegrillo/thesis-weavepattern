@@ -16,7 +16,7 @@ from tensorflow.keras import layers
 # https://github.com/lstearns86/clothing-pattern-dataset
 # Arrange it in the format of Cats and Dogs
 
-dataset_name = "weave_pattern"
+dataset_name = "weave_pattern_test03"
 
 PATH = os.path.join("dataset", dataset_name)
 

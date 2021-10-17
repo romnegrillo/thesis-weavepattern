@@ -5,7 +5,7 @@ from tensorflow import keras
 
 labels = ["Binakol", "Pinilian", "Trambia", "Wasig"]
 
-new_model = tf.keras.models.load_model("weave_pattern_mobilenetv2.h5")
+new_model = tf.keras.models.load_model("weave_pattern_test02_mobilenetv2.h5")
 new_model.summary()
 
 vid = cv2.VideoCapture(0)
