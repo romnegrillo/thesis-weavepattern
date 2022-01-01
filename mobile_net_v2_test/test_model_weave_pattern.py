@@ -3,9 +3,9 @@ import tensorflow as tf
 import numpy as np
 from tensorflow import keras
 
-labels = ["Binakol", "Pinilian", "Trambia", "Wasig"]
+labels = ["Binakol", "Binetwagan", "Pinilian", "Trambia", "Wasig"]
 
-new_model = tf.keras.models.load_model("weave_pattern_test02_mobilenetv2.h5")
+new_model = tf.keras.models.load_model("weave_pattern_final_01_mobilenetv2.h5")
 new_model.summary()
 
 vid = cv2.VideoCapture(0)
@@ -22,17 +22,20 @@ while(True):
    
 
     predictions_list = new_model.predict(np.array([frame_filtered]))
+ 
     prediction = np.argmax(predictions_list[0])
     proba = np.round(float(predictions_list[0][prediction]) * 100, 2)   
 
     print(predictions_list)
     label = ""
 
-    if proba >= 85:
+    if proba >= 70:
         label = labels[prediction]
         print("{} %".format(proba))
     else:
         label = "Unknown"
+
+    label =  label + " " + str(round(proba,2))
 
     cv2.putText(frame, label, (10,50), cv2.FONT_HERSHEY_PLAIN, 2, (0,255,0), 3)
 
@@ -42,7 +45,7 @@ while(True):
     # the 'q' button is set as the
     # quitting button you may use any
     # desired button of your choice
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(100) & 0xFF == ord('q'):
         break
   
 # After the loop release the cap object

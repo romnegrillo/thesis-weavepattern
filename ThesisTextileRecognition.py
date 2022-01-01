@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 import numpy as np
+import datetime
+import os
 
 try:
     from picamera import PiCamera
@@ -28,8 +30,7 @@ class ThesisTextileRecognition:
         self.view_num=1
         self.trained_model_path = trained_model_path
         self.model = None
-        self.labels = ["checkered pattern", "dotted pattern", "floral pattern",  "solid pattern", "stripped pattern", "zig zag"]
-
+        self.labels = ["Binakol", "Binetwagan", "Pinilian", "Trambia", "Wasig"]
         
         self.load_model(self.trained_model_path)
 
@@ -57,7 +58,7 @@ class ThesisTextileRecognition:
         gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY)
         t,tresh=cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-        #self.get_prediction(bgr)
+        #self.get_prediction_and_save(bgr)
         
         if self.view_num == 1:
             #print("rgb")
@@ -82,7 +83,7 @@ class ThesisTextileRecognition:
         self.model = tf.keras.models.load_model(trained_model_path)
         self.model.summary()
 
-    def get_prediction(self, input_image):
+    def get_prediction_and_save(self, input_image):
 
         #print("DEBUG")
         
@@ -96,14 +97,20 @@ class ThesisTextileRecognition:
         #print(predictions_list)
         label = ""
 
-        if proba >= 80:
+        if proba >= 70:
             label = self.labels[prediction]
             #print("{} %".format(proba))
         else:
             label = "Unknown"
-            proba = "-"
+            #proba = "-"
 
         #print(label)
+
+        # Add the label and prediciton to image and save it.
+        temp_img = cv2.cvtColor(input_image.copy(),cv2.COLOR_RGB2BGR)
+        cv2.putText(temp_img, "{} - {}".format(label, proba), (10,50), cv2.FONT_HERSHEY_PLAIN, 2, (0,255,0), 3)
+        filename = os.path.join("captured_images",datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")) + ".jpg"
+        cv2.imwrite(filename, temp_img)
 
         return label, proba
 

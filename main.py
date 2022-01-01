@@ -3,7 +3,7 @@ from PyQt5.uic import loadUi
 import sys
 from ThesisTextileRecognition import ThesisTextileRecognition 
 import time
-
+import cv2
 
 in_rpi = False
 try:
@@ -26,12 +26,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.confidence_textbox.setText("-")
 
         if in_rpi:
-            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/cloth_pattern_mobilenetv2.h5",
+            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/weave_pattern_final_01_mobilenetv2.h5",
                                                     use_webcam = False,
                                                     use_rpicam = True)
             self.showFullScreen()
         else:
-            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/cloth_pattern_mobilenetv2.h5",
+            self.imgObject=ThesisTextileRecognition("mobile_net_v2_test/weave_pattern_final_01_mobilenetv2.h5",
                                                     use_webcam=True,
                                                     use_rpicam = False)
                                                     
@@ -50,7 +50,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.is_captured = True
             self.timer.stop()
 
-        prediction, proba = self.imgObject.get_prediction(self.image)
+        prediction, proba = self.imgObject.get_prediction_and_save(self.image)
 
         self.class_textbox.setText(prediction)
         self.confidence_textbox.setText(str(proba))
